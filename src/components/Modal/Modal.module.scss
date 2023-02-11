@@ -1,0 +1,229 @@
+.root {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 25px;
+  margin-bottom: 25px;
+  margin-top: 36px;
+}
+
+.button {
+  width: 158.67px;
+  height: 46px;
+  background: #f2f2f2;
+  border-radius: 5px;
+  align-items: center;
+  color: #262626;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  border: none;
+  margin-left: 12px;
+  margin-bottom: 40px;
+  cursor: pointer;
+}
+
+.active {
+  width: 158.67px;
+  height: 46px;
+  background: #005da1;
+  border-radius: 5px;
+  align-items: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  border: none;
+  margin-left: 12px;
+  margin-bottom: 40px;
+  cursor: pointer;
+}
+
+p {
+  font-size: 12px;
+  line-height: 16px;
+  color: #808080;
+}
+
+.select {
+  font-family: 'Open Sans', sans-serif;
+  padding: 0px 16px;
+  gap: 12px;
+  width: 500px;
+  height: 39px;
+  background: #ffffff;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  appearance: none;
+  overflow: hidden;
+  background: url('../../assets/icons/select-arrow.svg') no-repeat right;
+  background-position: right 1.2em top 50%, 0 0;
+  background-size: 12px 20px;
+  margin-bottom: 16px;
+}
+
+.inputTin {
+  padding: 0px 16px;
+  gap: 12px;
+  width: 500px;
+  height: 39px;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  position: relative;
+  &:last-child {
+    margin-bottom: 28px;
+  }
+}
+
+.inputName {
+  padding: 0px 16px;
+  gap: 12px;
+  width: 500px;
+  height: 39px;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  padding-left: 70px;
+  position: relative;
+  &:last-child {
+    margin-bottom: 28px;
+  }
+}
+
+.nameShort {
+  width: 65px;
+  height: 37px;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: 1px solid #d1d1d1;
+  text-align: center;
+  position: fixed;
+  z-index: 1;
+  font-family: 'OpenSans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+}
+
+.buttonconfirm {
+  padding: 12px 48px;
+  gap: 10px;
+  width: 170px;
+  height: 43px;
+  background: #009a3e;
+  border-radius: 4px;
+  color: #fff;
+  border: none;
+  margin-bottom: 36px;
+  cursor: pointer;
+}
+
+.box {
+  margin-bottom: 18px;
+}
+
+.innerBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  & label {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #005da1;
+    position: relative;
+    margin-left: 6px;
+    user-select: none;
+    cursor: pointer;
+    &:before {
+      content: '';
+
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: -21px;
+      top: 2px;
+      bottom: 1px;
+      background: url('../../assets/icons/radio.svg') 0 0 no-repeat;
+    }
+  }
+  & input[type='radio']:checked + label:before {
+    left: -22px;
+    top: 1px;
+    bottom: 1px;
+    background: url('../../assets/icons/checked.svg') 0 0 no-repeat;
+  }
+}
+
+input[type='radio'] {
+  display: none;
+}
+
+p {
+  font-size: 12px;
+  line-height: 16px;
+  color: #808080;
+}
+
+.inputComp {
+  padding: 0px 16px;
+  gap: 12px;
+  width: 500px;
+  height: 39px;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  padding-left: 70px;
+
+  &:last-child {
+    margin-bottom: 28px;
+  }
+}
+
+.textComp {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  right: 208px;
+  left: 20px;
+}
+
+.nameShort {
+  width: 65px;
+  height: 37px;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  border-right: 1px solid #d1d1d1;
+  text-align: center;
+  position: fixed;
+  z-index: 1;
+  font-family: 'OpenSans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+}
