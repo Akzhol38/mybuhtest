@@ -1,12 +1,30 @@
 import React from 'react';
 import Organizations from './components/Organizations';
 import styles from './app.module.scss';
-import data from './data/companies.json';
 import Modal from './components/Modal';
 import CloseModal from './components/CloseModal/CloseModal';
+import axios from 'axios';
 
 function App() {
-  const [companies, setCompanies] = React.useState(data);
+  const [companies, setCompanies] = React.useState([]);
+  const [dataOwn, setDataOwn] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(true);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      const response = await axios.get('https://63e8be524f3c6aa6e7c235db.mockapi.io/companies');
+      setCompanies(response.data);
+      setIsLoading(false);
+    };
+    fetchData();
+  }, []);
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`https://63e8bf17b120461c6be50a7e.mockapi.io/ownership`);
+      setDataOwn(response.data);
+    };
+    fetchData();
+  }, []);
 
   const [deletedId, setDeletedId] = React.useState('');
   const [selectedId, setSelectedId] = React.useState(null);
@@ -16,12 +34,6 @@ function App() {
 
   const [open, setOpen] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
-
-  const [accountType, setAccountType] = React.useState('');
-
-  const handleAccountType = (type) => {
-    setAccountType(type);
-  };
 
   const handleDelete = (id) => {
     setDeletedId(id);
@@ -40,7 +52,7 @@ function App() {
   const handleEdit = (id) => {
     setSelectedId(id);
     setSelectedCompany(companies.find((company) => company.company_id === id));
-    setAccountType(companies.find((company) => company.company_id === id).account_type);
+
     setOpen(true);
   };
 
@@ -52,7 +64,9 @@ function App() {
     <div className="app">
       <div className={styles.title}>Мои организации</div>
       <div className={styles.components}>
-        {companies &&
+        {isLoading ? (
+          <h1>Загрузка Организация...</h1>
+        ) : (
           companies.map((company) => (
             <Organizations
               key={company.company_id}
@@ -65,8 +79,10 @@ function App() {
               id={company.company_id}
               setOpen={setOpen}
               formId={company.form_id}
+              dataOwn={dataOwn}
             />
-          ))}
+          ))
+        )}
         {open && (
           <Modal
             open={open}
@@ -77,6 +93,7 @@ function App() {
             selectedCompany={selectedCompany}
             setSelectedCompany={setSelectedCompany}
             formId={formId}
+            dataOwn={dataOwn}
           />
         )}
       </div>

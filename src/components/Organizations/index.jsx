@@ -3,9 +3,6 @@ import styles from './Organizations.module.scss';
 import svg from '../../assets/apartment.svg';
 import editIcon from '../../assets/icons/edit.svg';
 import deleteIcon from '../../assets/icons/delete.svg';
-import dataown from '../../data/ownerships.json';
-import formToSys from '../../data/form-to-system.json';
-import taxSys from '../../data/tax-systems.json';
 
 const Organizations = ({
   name,
@@ -16,6 +13,7 @@ const Organizations = ({
   handleEdit,
   formId,
   handleFormId,
+  dataOwn,
 }) => {
   const handleEditClick = () => {
     handleEdit(id);
@@ -23,12 +21,12 @@ const Organizations = ({
   };
   let shortValue = '';
 
-  dataown.forEach((item) => {
+  dataOwn.forEach((item) => {
     if (item.id === formId) {
       shortValue = item.short;
     }
   });
-  // console.log(formId);
+
   return (
     <div className={styles.root}>
       <div className={styles.image}>

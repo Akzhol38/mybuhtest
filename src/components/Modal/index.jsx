@@ -1,7 +1,8 @@
 import React from 'react';
 import datacom from '../../data/tax-systems.json';
+import RadioButton from '../RadioButton';
+import SelectAndInput from '../SelectAndInput';
 import styles from './Modal.module.scss';
-import dataown from '../../data/ownerships.json';
 
 const Modal = ({
   open,
@@ -11,26 +12,26 @@ const Modal = ({
   setSelectedId,
   selectedCompany,
   formId,
+  dataOwn,
 }) => {
   const [bin, setBin] = React.useState(selectedCompany.company_tin || '');
   const [name, setName] = React.useState(selectedCompany.company_name || '');
-  const [tax, setTax] = React.useState(null);
   const [selected, setSelected] = React.useState(selectedCompany.tax_id || '');
-  const data = ['ТОО', 'ИП', 'Прочие'];
+  const [tax, setTax] = React.useState(null);
   const [current, setCurrent] = React.useState(0);
+  const data = ['ТОО', 'ИП', 'Прочие'];
   let accountType = '';
 
-  dataown.forEach((item) => {
+  dataOwn.forEach((item) => {
     if (item.id === formId) {
       accountType = item.account_type;
     }
   });
-  console.log('selectedId', selectedId);
-  console.log('FromID', formId);
-  console.log(accountType);
 
   const [selectedOption, setSelectedOption] = React.useState('');
-  const [selectedRadio, setSelectedRadio] = React.useState(null);
+  const [selectedRadio, setSelectedRadio] = React.useState('');
+
+  console.log(selectedRadio);
 
   const handleClickCategory = (item, index) => {
     setCurrent(index);
@@ -49,7 +50,6 @@ const Modal = ({
         setSelectedOption('');
         break;
     }
-    console.log(selectedOption);
   };
 
   const handleClickOutside = (event) => {
@@ -105,213 +105,80 @@ const Modal = ({
         </div>
         {selectedOption === 'too' && (
           <>
-            <div>
-              <p>Выберите систему налогообложения</p>
-              <select
-                className={styles.select}
-                onChange={handleChange}
-                name={selected}
-                value={selected}>
-                {datacom.map((item) => (
-                  <option key={item.id} value={item.full} onChange={() => setTax(item.id)}>
-                    {item.full}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <p>Введите ИИН/БИН</p>
-              <input
-                className={styles.inputTin}
-                value={bin}
-                type="text"
-                onChange={(e) => setBin(e.target.value)}
-                readOnly
-                disabled
-              />
-            </div>
-            <div>
-              <p>Введите название компании</p>
-              <input className={styles.nameShort} placeholder="ТОО" readOnly disabled />
-              <input
-                className={styles.inputName}
-                value={name}
-                type="text"
-                onChange={(e) => setName(e.target.value)}
-                readOnly
-                disabled
-              />
-            </div>
+            <SelectAndInput
+              setTax={setTax}
+              bin={bin}
+              setBin={setBin}
+              name={name}
+              setName={setName}
+              datacom={datacom}
+              selected={selected}
+              handleChange={handleChange}
+              nameShort="ТОО"
+            />
           </>
         )}
         {selectedOption === 'ip' && (
           <>
-            <div>
-              <p>Выберите систему налогообложения</p>
-              <select
-                className={styles.select}
-                onChange={handleChange}
-                name={selected}
-                value={selected}>
-                {datacom.map((item) => (
-                  <option key={item.id} value={item.full} onChange={() => setTax(item.id)}>
-                    {item.full}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <p>Введите ИИН/БИН</p>
-              <input
-                className={styles.inputTin}
-                value={bin}
-                type="text"
-                onChange={(e) => setBin(e.target.value)}
-                readOnly
-                disabled
-              />
-            </div>
-            <div>
-              <p>Введите название компании</p>
-              <input className={styles.nameShort} placeholder="ИП" readOnly disabled />
-              <input
-                className={styles.inputName}
-                value={name}
-                type="text"
-                onChange={(e) => setName(e.target.value)}
-                readOnly
-                disabled
-              />
-            </div>
+            <SelectAndInput
+              setTax={setTax}
+              bin={bin}
+              setBin={setBin}
+              name={name}
+              setName={setName}
+              datacom={datacom}
+              selected={selected}
+              handleChange={handleChange}
+              nameShort="ИП"
+            />
           </>
         )}
         {selectedOption === 'fiz' && (
-          <div className={styles.box}>
-            <div className={styles.innerBox}>
-              <input
-                className={styles.rButton}
-                type="radio"
-                id="llc"
-                value="option1"
-                checked={selectedRadio === 'option1'}
-                onChange={(e) => setSelectedRadio(e.target.value)}
-              />
-              <label className={styles.label} htmlFor="llc">
-                Юридические лица
-              </label>
-            </div>
-            <div className={styles.innerBox}>
-              <input
-                className={styles.rButton}
-                type="radio"
-                id="ip"
-                value="option2"
-                checked={selectedRadio === 'option2'}
-                onChange={(e) => setSelectedRadio(e.target.value)}
-              />
-              <label className={styles.label} htmlFor="ip">
-                Частная практика
-              </label>
-            </div>
-            <div className={styles.innerBox}>
-              <input
-                className={styles.rButton}
-                type="radio"
-                id="ff"
-                value="option3"
-                checked={selectedRadio === 'option3'}
-                onChange={(e) => setSelectedRadio(e.target.value)}
-              />
-              <label className={styles.label} htmlFor="ff">
-                Физические лица
-              </label>
-            </div>
-          </div>
+          <RadioButton selectedRadio={selectedRadio} setSelectedRadio={setSelectedRadio} />
         )}
         {selectedRadio === 'option1' && (
           <>
             <div>
-              <p>Выберите систему собственоссти</p>
-              <select className={styles.select} onChange={handleChange} name={selected}>
-                {dataown.map((item) => (
-                  <option key={item.id} value={item.full}>
+              <p>Выберите систему собственности</p>
+              <select className={styles.select} name={selected}>
+                {dataOwn.map((item) => (
+                  <option
+                    onClick={() =>
+                      setSelectedRadio(item.account_type === 'too' ? 'option1' : 'option3')
+                    }
+                    key={item.id}
+                    value={item.full}>
                     {item.full}
                   </option>
                 ))}
               </select>
             </div>
-            <div>
-              <p>Выберите систему налогообложения</p>
-              <select
-                className={styles.select}
-                onChange={handleChange}
-                name={selected}
-                value={selected}>
-                {datacom.map((item) => (
-                  <option key={item.id} value={item.full} onChange={() => setTax(item.id)}>
-                    {item.full}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <div>
-                <p className={styles.textTin}>Введите ИИН/БИН</p>
-                <input
-                  className={styles.inputTin}
-                  value={bin}
-                  type="text"
-                  onChange={(e) => setBin(e.target.value)}
-                />
-              </div>
-              <div>
-                <p className={styles.textComp}>Введите название компании</p>
-                <input className={styles.nameShort} placeholder="ЮЛ" readOnly disabled />
-                <input
-                  className={styles.inputComp}
-                  value={name}
-                  type="text"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-            </div>
+            <SelectAndInput
+              setTax={setTax}
+              bin={bin}
+              setBin={setBin}
+              name={name}
+              setName={setName}
+              datacom={datacom}
+              selected={selected}
+              handleChange={handleChange}
+              nameShort="ЮЛ"
+            />
           </>
         )}
         {selectedRadio === 'option2' && (
           <>
-            <div>
-              <p>Выберите систему собственоссти</p>
-              <select className={styles.select} onChange={handleChange} name={selected}>
-                {dataown.map((item) => (
-                  <option key={item.id} value={item.full}>
-                    {item.full}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <div>
-                <p className={styles.textTin}>Введите ИИН/БИН</p>
-                <input
-                  className={styles.inputTin}
-                  value={bin}
-                  type="text"
-                  onChange={(e) => setBin(e.target.value)}
-                />
-              </div>
-              <div>
-                <p className={styles.textComp}>Введите название компании</p>
-                <input className={styles.nameShort} placeholder="ЮЛ" readOnly disabled />
-                <input
-                  className={styles.inputComp}
-                  value={name}
-                  type="text"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-            </div>
+            <SelectAndInput
+              setTax={setTax}
+              bin={bin}
+              setBin={setBin}
+              name={name}
+              setName={setName}
+              datacom={datacom}
+              selected={selected}
+              handleChange={handleChange}
+              nameShort="ЮЛ"
+            />
           </>
         )}
         {selectedRadio === 'option3' && (
@@ -327,7 +194,7 @@ const Modal = ({
             </div>
             <div>
               <p className={styles.textComp}>Введите название компании</p>
-              <input className={styles.nameShort} placeholder="ФЛ" readOnly disabled />
+              <input className={styles.nameShort} placeholder="Фл" readOnly disabled />
               <input
                 className={styles.inputComp}
                 value={name}
@@ -337,7 +204,6 @@ const Modal = ({
             </div>
           </div>
         )}
-
         <button className={styles.buttonconfirm} onClick={handleSubmit}>
           Сохранить
         </button>

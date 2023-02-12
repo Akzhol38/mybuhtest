@@ -1,0 +1,46 @@
+.box {
+  margin-bottom: 18px;
+}
+
+.innerBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  & label {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #808080;
+    //#005da1
+    position: relative;
+    margin-left: 6px;
+    user-select: none;
+    cursor: pointer;
+    &:before {
+      content: '';
+
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: -21px;
+      top: 2px;
+      bottom: 1px;
+      background: url('../../assets/icons/radio.svg') 0 0 no-repeat;
+    }
+  }
+  & input[type='radio']:checked + label:before {
+    left: -22px;
+    top: 1px;
+    bottom: 1px;
+    background: url('../../assets/icons/checked.svg') 0 0 no-repeat;
+  }
+}
+input[type='radio']:checked + label {
+  color: #005da1;
+}
+
+input[type='radio'] {
+  display: none;
+}
